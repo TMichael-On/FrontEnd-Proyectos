@@ -16,12 +16,13 @@ export default function RootLayout({ children }) {
       <head>
         {/* <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" as="style"/> */}
         <Script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"></Script>
-        <script src="js/scripts.js"></script>                
+        <script src="js/scripts.js"></script>
       </head>
       <body className={inter.className}>
         <MasterPage>
           {children}
         </MasterPage>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossOrigin="anonymous"></script>
       </body>
     </html>
   )

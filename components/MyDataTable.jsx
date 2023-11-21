@@ -30,18 +30,18 @@ function MyDataTable() {
 
     const columns = [
         { header: 'ID', accessorKey: 'IDCita' },
+        { header: 'Paciente', accessorKey: 'Paciente'},
+        { header: 'Medico', accessorKey: 'Medico' },  
         { header: 'Motivo de la consulta', accessorKey: 'citMotivo' },
         { header: 'Fecha', accessorKey: 'citFecha' },
-        { header: 'Hora', accessorKey: 'citHora' },
-        { header: 'Medico', accessorKey: 'Medico' },
-        { header: 'Paciente', accessorKey: 'Paciente', cell: info => info.getValue() },
+        { header: 'Hora', accessorKey: 'citHora' },              
         // { header: 'Estado', accessorKey: 'citEstado' },
         {
             id: 'citEstado',
             header: () => null,
-            Cell: row => (                
-                <div>
-                    <button type="button" className="btn btn-primary btn-sm btn-editar" style={{ width: 'px' }} onClick={() => handleEdit(row.getValue)}>
+            cell: row => (                
+                <div style={{ width: '75px'}}>
+                    <button type="button" className="btn btn-primary btn-sm btn-editar" onClick={() => handleEdit(row.getValue)}>
                         <i className="fas fa-pen"></i>
                     </button>
                     <button type="button" className="btn btn-danger btn-sm ms-2 btn-eliminar" onClick={() => handleDelete(row.getValue)}>
@@ -52,25 +52,6 @@ function MyDataTable() {
         }
         //cell: info => dayjs(info.getValue()).format(DD/MM/YYYY)
     ];
-
-    const tableHocks = (hooks) => {
-        hooks.getVisibleCells.push((columns) => [
-            ...columns,
-            {
-                id: 'citEstado',
-                header: () => null,
-                Cell: row => (
-                    <div>
-                        <button type="button" className="btn btn-primary btn-sm btn-editar" style={{ width: '100%' }} onClick={() => handleEdit(row.getValue)}>
-                            <i className="fas fa-pen"></i>
-                        </button>
-                        <button type="button" className="btn btn-danger btn-sm ms-2 btn-eliminar" onClick={() => handleDelete(row.getValue)}>
-                            <i className="fas fa-trash"></i>
-                        </button>
-                    </div>
-                )
-            }])
-    }
 
     // Configuración de la tabla
     const table = useReactTable(
@@ -99,7 +80,7 @@ function MyDataTable() {
             ) : (
                 <>
                     <div className='table-responsive'>
-                        <table className="table table-bordered" style={{ borderCollapse: 'collapse', width: '100%' }} >
+                        <table className="table table-bordered" style={{ borderCollapse: 'collapse', width: '100%'}} >
                             <thead>
                                 {table.getHeaderGroups().map(headerGroup => (
                                     <tr key={headerGroup.id}>
