@@ -4,10 +4,17 @@ import React from 'react';
 import Odonto from '@/components/odonto'
 import styles from './page.module.css'
 import "@/app/globals.css"
-import MyComponent from "@/components/MyComponent"
 import Link from 'next/link';
 import DetallesCliente from '@/components/DetallesCliente';
+import ModalOdontograma from '@/components/ModalOdontograma';
+
 export default function odontrograma() {
+  const openModal = () => {
+    document.getElementById("IDOdontograma").value = 0
+    document.getElementById("Tratamiento").value = 0
+    document.getElementById("dntCara").value = 0
+    document.getElementById("mensajeError").style.display = "none";
+  };
 
   const columns = React.useMemo(
     () =>
@@ -36,11 +43,12 @@ export default function odontrograma() {
         <li className="breadcrumb-item"><Link href="/">Opciones</Link></li>
         <li className="breadcrumb-item active">Odontograma</li>
       </ol>
+      <ModalOdontograma />
       <div className="card">
         <div className="card-header">
           <i className="fas fa-users me-1"></i> Odontograma
         </div>
-        <div className="card-body" style={{ maxWidth: '100%'}}>
+        <div className="card-body" style={{ maxWidth: '100%' }}>
           <div className="row">
             <div className="col-12">
               <button type="button" className="btn btn-success" >Seleccionar paciente</button>
@@ -48,9 +56,15 @@ export default function odontrograma() {
           </div>
           <hr />
           <DetallesCliente />
-          <hr />
+          <hr />          
           <div className='table-responsive'>
             <Odonto columns={columns} data={data} styles={styles} />
+          </div>
+          <hr />
+          <div className="row">
+            <div className="col-12">
+              <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalOdontograma" onClick={openModal}>Añadir Tratamiento</button>
+            </div>
           </div>
           <hr />
         </div>
