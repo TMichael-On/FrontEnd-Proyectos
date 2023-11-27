@@ -7,6 +7,7 @@ import $ from 'jquery';
 import 'datatables.net';
 
 const DataTableNet = () => {
+  console.log("DataTableNet")
   const tableRef = useRef(null);
 
   useEffect(() => {

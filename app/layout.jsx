@@ -1,9 +1,9 @@
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
-import './globals.css'
+// import './globals.css'
 import MasterPage from '../components/MasterPage'
-import loadCitas from '@/components/Utilidades'
 const inter = Inter({ subsets: ['latin'] })
+
 
 export const metadata = {
   title: 'Create Next App',
@@ -16,7 +16,8 @@ export default function RootLayout({ children }) {
       <head>
         {/* <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" as="style"/> */}
         <Script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"></Script>
-        <script src="js/scripts.js"></script>
+        <link rel="stylesheet" href="css/styles.css" />
+        <script src="js/scripts.js"></script>        
       </head>
       <body className={inter.className}>
         <MasterPage>

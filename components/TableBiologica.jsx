@@ -1,5 +1,7 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import Biologica_Peticiones from '@/peticiones/biologica.peticiones';
+import Swal from 'sweetalert2';
 import {
     useReactTable,
     getCoreRowModel,
@@ -7,44 +9,89 @@ import {
     getPaginationRowModel
 } from '@tanstack/react-table';
 
-function MyDataTable() {
+const biologicaObj = new Biologica_Peticiones();
 
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+function TableBiologica({ data, setData, loading, setLoading }) {
+    // const [data, setData] = useState([]);
+    // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://desplieguebackend-production.up.railway.app/citas/listCita');
-                const jsonData = await response.json();
+                const jsonData = await biologicaObj.fetchResultListar();
                 setData(jsonData);
             } catch (error) {
-                console.error('Error al obtener datos de la API:', error);
+                console.error('Error al obtener datos: ', error);
             } finally {
                 setLoading(false);
             }
         };
-
         fetchData();
-    }, []);
+    }, [setData]);
+
+    //#region Botones
+    const MostrarDatos = async (rowFila) => {
+        debugger
+        const dataFilaSelec = rowFila.row.original
+        document.getElementById("IDBiologica").value = dataFilaSelec.IDBiologica
+        document.getElementById("IDHistoriab").value = dataFilaSelec.IDHistoria
+        document.getElementById("bioApetito").value = dataFilaSelec.bioApetito
+        document.getElementById("bioDeposicion").value = dataFilaSelec.bioDeposicion
+        document.getElementById("bioSed").value = dataFilaSelec.bioSed
+        document.getElementById("bioOrina").value = dataFilaSelec.bioOrina
+        document.getElementById("bioSueno").value = dataFilaSelec.bioSueno
+        document.getElementById("mensajeError").style.display = "none";
+        // citEstadoRef.current.setAttribute('aria-disabled', 'true');
+    };
+
+    const EliminarCita = (rowFila) => {
+        Swal.fire({
+            title: '¡Alerta!',
+            text: '¿Estás seguro de querer eliminar el registro?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                debugger
+                const indexFilaSelec = rowFila.row.index;
+                const IDBiologica = rowFila.row.original.IDBiologica;
+                try {
+                    const result = await biologicaObj.fetchResultEliminar(IDBiologica);
+                    const affectedRows = result.result.affectedRows;
+                    const message = result.result.message;
+                    if (affectedRows == 1) {
+                        const updatedData = [...data];
+                        updatedData.splice(indexFilaSelec, 1);
+                        setData(updatedData);
+                    } else {
+                        console.error('Error al eliminar el registro');
+                    }
+                } catch (error) {
+                    console.error('Error al eliminar el registro:', error);
+                }
+            }
+        });
+    };
 
     const columns = [
-        { header: 'ID', accessorKey: 'IDCita' },
-        { header: 'Paciente', accessorKey: 'Paciente'},
-        { header: 'Medico', accessorKey: 'Medico' },  
-        { header: 'Motivo de la consulta', accessorKey: 'citMotivo' },
-        { header: 'Fecha', accessorKey: 'citFecha' },
-        { header: 'Hora', accessorKey: 'citHora' },              
-        // { header: 'Estado', accessorKey: 'citEstado' },
+        // { header: 'ID', accessorKey: 'IDBiologica' },
+        { header: 'IDHistoria', accessorKey: 'IDHistoria' },
+        { header: 'Apetito', accessorKey: 'bioApetito' },
+        { header: 'Deposición', accessorKey: 'bioDeposicion' },
+        { header: 'Sed', accessorKey: 'bioSed' },
+        { header: 'Orina', accessorKey: 'bioOrina' },
+        { header: 'Sueño', accessorKey: 'bioSueno' },
         {
-            id: 'citEstado',
+            accessorKey: 'IDBiologica',
             header: () => null,
-            cell: row => (                
-                <div style={{ width: '75px'}}>
-                    <button type="button" className="btn btn-primary btn-sm btn-editar" onClick={() => handleEdit(row.getValue)}>
+            cell: row => (
+                <div style={{ width: '75px' }}>
+                    <button type="button" className="btn btn-primary btn-sm btn-editar" data-bs-toggle="modal" data-bs-target="#ModalHistoriaC" onClick={() => MostrarDatos(row)}>
                         <i className="fas fa-pen"></i>
                     </button>
-                    <button type="button" className="btn btn-danger btn-sm ms-2 btn-eliminar" onClick={() => handleDelete(row.getValue)}>
+                    <button type="button" className="btn btn-danger btn-sm ms-2 btn-eliminar" onClick={() => EliminarCita(row)}>
                         <i className="fas fa-trash"></i>
                     </button>
                 </div>
@@ -53,6 +100,7 @@ function MyDataTable() {
         //cell: info => dayjs(info.getValue()).format(DD/MM/YYYY)
     ];
 
+    //#endregion
     // Configuración de la tabla
     const table = useReactTable(
         {
@@ -63,16 +111,6 @@ function MyDataTable() {
         }
     );
 
-    //#region Botones
-    const handleEdit = (id) => {
-        // Lógica para manejar la edición
-    };
-
-    const handleDelete = (id) => {
-        // Lógica para manejar la eliminación
-    };
-    //#endregion 
-
     return (
         <>
             {loading ? (
@@ -80,7 +118,7 @@ function MyDataTable() {
             ) : (
                 <>
                     <div className='table-responsive'>
-                        <table className="table table-bordered" style={{ borderCollapse: 'collapse', width: '100%'}} >
+                        <table className="table table-bordered " style={{ borderCollapse: 'collapse', width: '100%' }} >
                             <thead>
                                 {table.getHeaderGroups().map(headerGroup => (
                                     <tr key={headerGroup.id}>
@@ -174,4 +212,4 @@ function MyDataTable() {
     );
 };
 
-export default MyDataTable;
+export default TableBiologica;

@@ -1,0 +1,52 @@
+.tableContainer {
+  @media (min-width: 850px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.tableBordered {
+  border: 1px solid black;
+}
+
+.tabla th {
+  display: table-cell;
+  height: 50px;
+  width: 50px;
+  vertical-align: inherit;
+  font-weight: bold;
+  text-align: center;
+}
+
+.tabla td {
+  height: 77px;
+  width: 50px;
+  text-align: center;
+}
+
+.tabla thead th {
+  font-weight: bold;
+  border: 3px solid black;
+}
+
+.tabla tfoot th {
+  font-weight: bold;
+  border: 3px solid black;
+}
+
+.tabla td[id^="0_col"],
+.tabla td[id^="3_col"],
+.tabla td[id^="6_col"],
+.tabla td[id^="9_col"] {
+  height: 20px;
+  font-weight: bold;
+}
+
+.th_borde {
+  border: 3px solid black;
+}
+
+/* .th_sborde {
+    margin-bottom: 100px;
+  } */
