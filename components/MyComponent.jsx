@@ -10,7 +10,7 @@ function MyComponent() {
   const fetchData = async () => {
     console.log("fetchData");
     try {
-      const result = await biologicaObj.fetchResultCrear();
+      const result = await biologicaObj.fetchResultCrear(); //fetchResultCrear
       setData(result);
     } catch (error) {
       console.error('Error al obtener datos:', error);
