@@ -15,18 +15,19 @@ class detodontograma_Peticiones {
     };
     // CREAR detodontograma
     async fetchResultCrear(data) {
+        debugger
         try {
             const response = await fetch('https://desplieguebackend-production.up.railway.app/detalleodontograma/createDetodont', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({   
-                    "CODIGO":"5", //codigo del odontograma
-                    "tratamiento":1,
-                    "cuadrante":1,
-                    "diente":1,
-                    "sector":"inferior",
-                    "estado":"Roto",
-                    "notas":"AM"          
+                    "CODIGO":data.IDOdontograma, //codigo del odontograma
+                    "tratamiento":data.IDTratamiento,
+                    "cuadrante":data.detCuadrante,
+                    "diente":data.detDiente,
+                    "sector":data.detSector,
+                    "estado":data.detEstado,
+                    "notas":data.detNotas          
               
                 })
             });
@@ -65,7 +66,7 @@ class detodontograma_Peticiones {
     async fetchResultEliminar(IDdetodontograma) {
         try {
             debugger
-            const response = await fetch(`https://desplieguebackend-production.up.railway.app/detalleodontograma/deleteDetodont/2`, {
+            const response = await fetch(`https://desplieguebackend-production.up.railway.app/detalleodontograma/deleteDetodont/${IDdetodontograma}`, {
                 method: 'DELETE'
             });
             const jsonResult = await response.json();

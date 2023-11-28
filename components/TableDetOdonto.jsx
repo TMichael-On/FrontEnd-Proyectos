@@ -1,4 +1,5 @@
 "use client"
+import detodontograma_Peticiones from '@/peticiones/detodontograma.peticiones';
 import {
     useReactTable,
     getCoreRowModel,
@@ -6,28 +7,63 @@ import {
     getPaginationRowModel
 } from '@tanstack/react-table';
 import { useState, useRef, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 function TableDetOdonto({ dataDet, setDataDet, loadingDet, setLoadingDet }) {
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const jsonData = await citasObj.fetchResultListar();
-    //             setDataDet(jsonData);
-    //         } catch (error) {
-    //             console.error('Error al obtener datos: ', error);
-    //         } finally {
-    //             setLoadingDet(false);
-    //         }
-    //     };
-    //     fetchData();
-    // }, [setDataDet]);
+    const detalleOdontObj = new detodontograma_Peticiones();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const jsonData = await detalleOdontObj.fetchResultListar();
+                setDataDet(jsonData);
+            } catch (error) {
+                console.error('Error al obtener datos: ', error);
+            } finally {
+                setLoadingDet(false);
+            }
+        };
+        fetchData();
+    }, [setDataDet]);
+
+    const EliminarDetOdontograma = (rowFila) => {
+        Swal.fire({
+            title: '¡Alerta!',
+            text: '¿Estás seguro de querer eliminar el registro?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                debugger
+                const indexFilaSelec = rowFila.row.index;
+                const IDDetalle = rowFila.row.original.IDDetalle;
+                try {
+                    const result = await detalleOdontObj.fetchResultEliminar(IDDetalle);
+                    const affectedRows = result.result.affectedRows;
+                    const message = result.result.message;
+                    if (affectedRows == 1) {
+                        const updatedData = [...dataDet];
+                        updatedData.splice(indexFilaSelec, 1);
+                        setDataDet(updatedData);
+                    } else {
+                        console.error('Error al eliminar registro');
+                    }
+                } catch (error) {
+                    console.error('Error al eliminar registro:', error);
+                }
+            }
+        });
+    };
 
     const columns = [
         // { header: 'ID', accessorKey: 'IDCita' },
-        { header: 'Tratamiento', accessorKey: 'Paciente' },
-        { header: 'Pieza', accessorKey: 'Medico' },
-        { header: 'Cara', accessorKey: 'citMotivo' },
+        { header: 'Tratamiento', accessorKey: 'Tratamiento' },
+        { header: 'Cuadrante', accessorKey: 'detCuadrante' },
+        { header: 'Diente', accessorKey: 'detDiente' },
+        { header: 'Cara', accessorKey: 'detSector' },
         {
             accessorKey: 'IDCita',
             header: () => null,
@@ -36,7 +72,7 @@ function TableDetOdonto({ dataDet, setDataDet, loadingDet, setLoadingDet }) {
                     <button type="button" className="btn btn-primary btn-sm btn-editar" data-bs-toggle="modal" data-bs-target="#ModalCita" onClick={() => MostrarDatos(row)}>
                         <i className="fas fa-pen"></i>
                     </button>
-                    <button type="button" className="btn btn-danger btn-sm ms-2 btn-eliminar" onClick={() => EliminarCita(row)}>
+                    <button type="button" className="btn btn-danger btn-sm ms-2 btn-eliminar" onClick={() => EliminarDetOdontograma(row)}>
                         <i className="fas fa-trash"></i>
                     </button>
                 </div>
@@ -47,7 +83,7 @@ function TableDetOdonto({ dataDet, setDataDet, loadingDet, setLoadingDet }) {
 
     const table = useReactTable(
         {
-            dataDet,
+            data: dataDet,
             columns,
             getCoreRowModel: getCoreRowModel(),
             getPaginationRowModel: getPaginationRowModel()
