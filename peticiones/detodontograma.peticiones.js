@@ -1,0 +1,79 @@
+class detodontograma_Peticiones {
+    // LISTAR detodontograma  
+    async fetchResultListar() {
+        console.log("detodontograma")
+        try {
+            const response = await fetch('https://desplieguebackend-production.up.railway.app/detalleodontograma/listDetodont/5', {
+                method: 'GET'
+            });
+            const jsonResult = await response.json();
+            return jsonResult;
+        } catch (error) {
+            console.error('Error al obtener respuesta de la API:', error);
+            throw error;
+        }
+    };
+    // CREAR detodontograma
+    async fetchResultCrear(data) {
+        try {
+            const response = await fetch('https://desplieguebackend-production.up.railway.app/detalleodontograma/createDetodont', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({   
+                    "CODIGO":"5", //codigo del odontograma
+                    "tratamiento":1,
+                    "cuadrante":1,
+                    "diente":1,
+                    "sector":"inferior",
+                    "estado":"Roto",
+                    "notas":"AM"          
+              
+                })
+            });
+            const jsonResult = await response.json();
+            return jsonResult;
+        } catch (error) {
+            console.error('Error al obtener respuesta de la API:', error);
+            throw error;
+        }
+    };
+    //ACTUALIZAR detodontograma
+    async fetchResultActualizar(data) {
+        debugger
+        try {
+            const response = await fetch(`https://desplieguebackend-production.up.railway.app/detalleodontograma/updateDetodont/2`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "tratamiento":1,
+                    "cuadrante":1,
+                    "diente":1,
+                    "sector":"CENTRO",
+                    "estado":"Roto",
+                    "notas":"AM"          
+                               
+                })
+            });
+            const jsonResult = await response.json();
+            return jsonResult;
+        } catch (error) {
+            console.error('Error al obtener respuesta de la API:', error);
+            throw error;
+        }
+    };
+    //ELIMINAR detodontograma
+    async fetchResultEliminar(IDdetodontograma) {
+        try {
+            debugger
+            const response = await fetch(`https://desplieguebackend-production.up.railway.app/detalleodontograma/deleteDetodont/2`, {
+                method: 'DELETE'
+            });
+            const jsonResult = await response.json();
+            return jsonResult;
+        } catch (error) {
+            console.error('Error al obtener respuesta de la API:', error);
+            throw error;
+        }
+    };
+}
+export default detodontograma_Peticiones;
