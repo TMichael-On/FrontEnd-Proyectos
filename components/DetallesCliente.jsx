@@ -4,7 +4,7 @@ function DetallesCliente() {
 
     return (
         <>
-            <div className="row g-2">
+            <div className="row g-0">
                 <div className="col-md-6 mb-2">
                     <div className="row g-0">
                         <label htmlFor="txtapellidos1" className="col-md-4 font-weight-bold g-0"><b>Apellidos y Nombres:</b></label>
