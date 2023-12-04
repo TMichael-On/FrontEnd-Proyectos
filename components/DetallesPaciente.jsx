@@ -7,7 +7,7 @@ function DetallesPaciente({ dataPaciente }) {
     return (
         <>
             <div className="row g-0">
-                <input id="IDPaciente" type="hidden" value={dataPaciente.IDPaciente} />
+                <input id="IDPaciente" type="show" value={dataPaciente.IDPaciente} />
                 <div className="col-md-6 mb-2">
                     <div className="row g-0">
                         <label htmlFor="" className="col-auto font-weight-bold g-0" style={{ paddingRight: '10px' }} ><b>Apellidos y Nombres:</b></label>
