@@ -3,14 +3,23 @@
 import React from 'react';
 import Odonto from '@/components/odonto'
 import styles from './page.module.css'
-import "@/app/globals.css"
 import Link from 'next/link';
-import DetallesCliente from '@/components/DetallesCliente';
+import DetallesPaciente from '@/components/DetallesPaciente';
 import { useState, useRef, useEffect } from 'react';
 import TableDetOdonto from '@/components/TableDetOdonto';
 import detodontograma_Peticiones from '@/peticiones/detodontograma.peticiones';
+import ModalPaciente, { mostrarDatos } from '@/components/ModalPaciente';
 
 export default function odontrograma() {
+
+  const [dataPaciente, setDataPaciente] = useState({
+    IDPaciente: 0, pacNombre: '', pacApellido: '',
+    pacDNI: '', pacSexo: '', pacReligion: '',
+    pacRaza: '', pacFechaN: '', pacEdad: '', pacLugar: '',
+    pacResidencia: '', pacGradoI: '', pacOcupacion: '',
+    pacEstadoC: '', pacCorreo: '', pacTelef: '',
+    pacEstado: '1',
+  });
 
   const [dataDet, setDataDet] = useState([]);
   const [loadingDet, setLoadingDet] = useState(true);
@@ -19,14 +28,10 @@ export default function odontrograma() {
   const [seleccion, setSeleccion] = useState('0');
 
   useEffect(() => {
-    // Lógica para obtener datos del servidor
-    // Puedes usar fetch, axios, u otra librería para realizar la solicitud HTTP
-    // Aquí se simula con un arreglo estático para demostración
     const datosDelServidor = ['AM', 'CE', 'IN'];
 
-    // Actualizar el estado con los datos obtenidos
     setOpciones(['0', ...datosDelServidor]);
-  }, []); // El segundo argumento [] asegura que el efecto solo se ejecute una vez al montar el componente
+  }, []);
 
   const handleSeleccion = (e) => {
     setSeleccion(e.target.value);
@@ -94,7 +99,7 @@ export default function odontrograma() {
     debugger
     var dataDetallesO = {
       IDDetalle: parseInt(IDDetalleRef.current.value),
-      IDOdontograma: "5",
+      IDOdontograma: String(dataPaciente.IDPaciente),
       IDTratamiento: parseInt(IDTratamientoRef.current.value),
       Tratamieto: IDTratamientoRef.current.options[IDTratamientoRef.current.selectedIndex].text,
       detCuadrante: parseInt(PiezaDentalRef.current.value.charAt(0)),
@@ -199,11 +204,11 @@ export default function odontrograma() {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header bg-dark text-white">
-              <h5 className="modal-title" id="exampleModalLabel">Citas</h5>
+              <h5 className="modal-title" id="exampleModalLabel">Tratamientos</h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <input id="IDDetalle" type="show" ref={IDDetalleRef} />
+              <input id="IDDetalle" type="hidden" ref={IDDetalleRef} />
               <div className="row g-1">
                 <div className="col-sm-12">
                   <label htmlFor="PiezaDental" className="form-label">Pieza dental:</label>
@@ -268,6 +273,7 @@ export default function odontrograma() {
           </div>
         </div>
       </div>
+      <ModalPaciente setDataPaciente={setDataPaciente} setDataDet={setDataDet}/>
       <div className="card">
         <div className="card-header">
           <i className="fas fa-users me-1"></i> Odontograma
@@ -275,11 +281,11 @@ export default function odontrograma() {
         <div className="card-body" style={{ maxWidth: '100%' }}>
           <div className="row">
             <div className="col-12">
-              <button type="button" className="btn btn-success" >Seleccionar paciente</button>
+              <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalPaciente" >Seleccionar paciente</button>
             </div>
           </div>
           <hr />
-          <DetallesCliente />
+          <DetallesPaciente dataPaciente={dataPaciente} />
           <hr />
           <div className='table-responsive'>
             <Odonto columns={columns} data={data} styles={styles} />
@@ -291,7 +297,7 @@ export default function odontrograma() {
             </div>
           </div>
           <hr />
-          <TableDetOdonto dataDet={dataDet} setDataDet={setDataDet} loadingDet={loadingDet} setLoadingDet={setLoadingDet} />
+          <TableDetOdonto dataDet={dataDet} setDataDet={setDataDet} loadingDet={loadingDet} setLoadingDet={setLoadingDet} dataPaciente={dataPaciente} />
         </div>
       </div>
     </>

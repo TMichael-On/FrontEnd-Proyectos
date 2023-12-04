@@ -1,9 +1,9 @@
 class detodontograma_Peticiones {
     // LISTAR detodontograma  
-    async fetchResultListar() {
+    async fetchResultListar(ID) {
         console.log("detodontograma")
         try {
-            const response = await fetch('https://desplieguebackend-production.up.railway.app/detalleodontograma/listDetodont/5', {
+            const response = await fetch(`https://desplieguebackend-production.up.railway.app/detalleodontograma/listDetodont/${ID}`, {
                 method: 'GET'
             });
             const jsonResult = await response.json();

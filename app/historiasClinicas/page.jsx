@@ -1,11 +1,20 @@
 "use client"
-import DetallesCliente from '@/components/DetallesCliente'
+import DetallesPaciente from '@/components/DetallesPaciente'
 import Link from 'next/link'
 import React from 'react'
 import styles from './page.module.css'
 import { useState, useRef, useEffect } from 'react';
 
 function historiasClinicas() {
+
+  const [dataPaciente, setDataPaciente] = useState({
+    IDPaciente: 0, pacNombre: '', pacApellido: '',
+    pacDNI: '', pacSexo: '', pacReligion: '',
+    pacRaza: '', pacFechaN: '', pacEdad: '', pacLugar: '',
+    pacResidencia: '', pacGradoI: '', pacOcupacion: '',
+    pacEstadoC: '', pacCorreo: '', pacTelef: '',
+    pacEstado: '1',
+  });
 
   const [mostrarCard1, setMostrarCard1] = useState(true);
   const [mostrarCard2, setMostrarCard2] = useState(false);
@@ -262,7 +271,7 @@ function historiasClinicas() {
               <label className="fw-bold">1. ANAMNESIS </label>
             </div>
             <div className="card-body">
-              <DetallesCliente />
+              <DetallesPaciente dataPaciente={dataPaciente} />
             </div>
           </div>
           <div className="card mb-4">

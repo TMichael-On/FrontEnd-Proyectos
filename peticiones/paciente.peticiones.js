@@ -1,9 +1,21 @@
 class Paciente_Peticiones {
     // LISTAR Paciente 
     async fetchResultListar() {
-        console.log("Paciente")
         try {
-            const response = await fetch('https://desplieguebackend-production.up.railway.app/paciente/listPaciente/2', {
+            const response = await fetch('https://desplieguebackend-production.up.railway.app/paciente/listPaciente/1', {
+                method: 'GET'
+            });
+            const jsonResult = await response.json();
+            return jsonResult;
+        } catch (error) {
+            console.error('Error al obtener respuesta de la API:', error);
+            throw error;
+        }
+    };
+    // LISTAR OPCIONES Paciente 
+    async fetchResultListarOpc() {
+        try {
+            const response = await fetch('https://desplieguebackend-production.up.railway.app/paciente/listPaciente', {
                 method: 'GET'
             });
             const jsonResult = await response.json();

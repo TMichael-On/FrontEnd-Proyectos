@@ -22,7 +22,7 @@ class Citas_Peticiones {
                 body: JSON.stringify({
                     "IDHistoria": data.IDHistoria,
                     "IDMedico": data.IDMedico,
-                    "citFecha": "2023-11-22", //YYYY-MM-DD
+                    "citFecha": data.citFecha, //YYYY-MM-DD "2023-11-22"
                     "citHora": data.citHora, //23:54:00
                     "citMotivo": data.citMotivo,
                     "citEstado": data.citEstado,

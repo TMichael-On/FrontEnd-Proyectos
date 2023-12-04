@@ -6,10 +6,13 @@ import Citas_Peticiones from "@/peticiones/cita.peticiones";
 import { useState, useRef, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
+import Paciente_Peticiones from "@/peticiones/paciente.peticiones";
+import Medico_Peticiones from "@/peticiones/medico.peticiones";
 // if (typeof window !== 'undefined') {
 //   require('bootstrap/dist/js/bootstrap.bundle.min.js');
 // }
+const pacienteobj = new Paciente_Peticiones()
+const medicoObj = new Medico_Peticiones()
 
 export default function Cita() {
   // useEffect(() => {
@@ -27,6 +30,32 @@ export default function Cita() {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [opcPaciente, setOpcPaciente] = useState([]);
+  const [opcMedico, setOpcMedico] = useState([]);
+
+  useEffect(() => {
+    const fetchDataPaciente = async () => {
+      try {
+
+        const jsonDataPaciente = await pacienteobj.fetchResultListar();
+        const opcPaciente = jsonDataPaciente.map(item => ({
+          value: item.IDPaciente,
+          label: item.pacApellido +' '+ item.pacNombre,
+        }));
+        const jsonDataMedico = await medicoObj.fetchResultListar();
+        const opcMedico = jsonDataMedico.map(item => ({
+          value: item.IDMedico,
+          label: item.medApellido +' '+ item.medNombre,
+        }));
+        setOpcPaciente(opcPaciente);
+        setOpcMedico(opcMedico);
+      } catch (error) {
+        console.error('Error al obtener datos: ', error);
+      }
+    };
+    fetchDataPaciente();
+  }, []);
+
   const openModal = () => {
     document.getElementById("IDCita").value = 0
     document.getElementById("IDHistoria").value = 0
@@ -71,7 +100,7 @@ export default function Cita() {
         newRow = resultCrear.result.row
 
         if (affectedRows == 1) {
-          
+
           const updatedData = [...data, newRow];
           setData(updatedData);
 
@@ -142,22 +171,24 @@ export default function Cita() {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <input id="IDCita" type="show" ref={IDCitaRef} />
+              <input id="IDCita" type="hidden" ref={IDCitaRef} />
               <div className="row g-1">
                 <div className="col-sm-6">
                   <label htmlFor="IDHistoria" className="form-label">Paciente</label>
                   <select id="IDHistoria" className="form-select" ref={IDHistoriaRef}>
                     <option value="0" disabled={true}>Seleccionar una opción</option>
-                    <option value="1">Paciente 1</option>
-                    <option value="2">Paciente 2</option>
+                    {opcPaciente.map((opcion) => (
+                      <option key={opcion.value} value={opcion.value}>{opcion.label}</option>
+                    ))}
                   </select>
                 </div>
                 <div className="col-sm-6">
                   <label htmlFor="IDMedico" className="form-label">Médico</label>
                   <select id="IDMedico" className="form-select" ref={IDMedicoRef}>
                     <option value="0" disabled={true}>Seleccionar una opción</option>
-                    <option value="1">Medico 1</option>
-                    <option value="2">Medico 2</option>
+                    {opcMedico.map((opcion) => (
+                      <option key={opcion.value} value={opcion.value}>{opcion.label}</option>
+                    ))}
                   </select>
                 </div>
                 <div className="col-sm-6">
@@ -170,7 +201,7 @@ export default function Cita() {
                 </div>
                 <div className="col-sm-6">
                   <label htmlFor="citMotivo" className="form-label">Motivo</label>
-                  <textarea  id="citMotivo" className="form-control" ref={citMotivoRef}></textarea>
+                  <textarea id="citMotivo" className="form-control" ref={citMotivoRef}></textarea>
                   {/* <input id="citMotivo" type="text" className="form-control" autoComplete="off" ref={citMotivoRef} /> */}
                 </div>
                 <div className="col-sm-6" >

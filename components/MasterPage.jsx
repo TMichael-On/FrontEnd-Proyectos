@@ -4,11 +4,11 @@ export default function MasterPage({ children }) {
   return (
     <div className="sb-nav-fixed">
       <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <Link className="navbar-brand ps-3" href="/">Start Bootstrap</Link>
+        <Link className="navbar-brand ps-3" href="/">Sistemas Odonto</Link>
         <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i className="fas fa-bars"></i></button>
         <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
           <div className="input-group">
-            <input className="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <input className="form-control" type="text" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="btnNavbarSearch" />
             <button className="btn btn-primary" id="btnNavbarSearch" type="button"><i className="fas fa-search"></i></button>
           </div>
         </form>
@@ -42,7 +42,7 @@ export default function MasterPage({ children }) {
                   <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
                   Odontrograma
                 </Link>
-                <div className="sb-sidenav-menu-heading">Interface</div>
+                {/* <div className="sb-sidenav-menu-heading">Interface</div>
                 <Link className="nav-link" href="/new">
                   <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
                   New
@@ -92,12 +92,11 @@ export default function MasterPage({ children }) {
                 <a className="nav-link" href="tables.html">
                   <div className="sb-nav-link-icon"><i className="fas fa-table"></i></div>
                   Tables
-                </a>
+                </a> */}
               </div>
             </div>
             <div className="sb-sidenav-footer">
-              <div className="small">Logged in as:</div>
-              Start Bootstrap
+              <div className="small">Registrado como:</div>
             </div>
           </nav>
         </div>
