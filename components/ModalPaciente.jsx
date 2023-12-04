@@ -8,10 +8,11 @@ import {
 } from '@tanstack/react-table';
 import Paciente_Peticiones from '@/peticiones/paciente.peticiones';
 import detodontograma_Peticiones from '@/peticiones/detodontograma.peticiones';
+import familiar_Peticiones from '@/peticiones/familiar.peticiones';
 
 const pacienteobj = new Paciente_Peticiones()
 
-function ModalPaciente({ setDataPaciente, setDataDet}) {
+function ModalPaciente({ setDataPaciente, setDataDet, setDataFamiliar }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -21,11 +22,14 @@ function ModalPaciente({ setDataPaciente, setDataDet}) {
         console.log(dataFilaSelec)
         setDataPaciente(dataFilaSelec)
         const fetchData = async () => {
-            debugger    
+            debugger
             const detalleOdontObj = new detodontograma_Peticiones();
+            const familiarObj = new familiar_Peticiones();
             try {
                 const jsonData = await detalleOdontObj.fetchResultListar(dataFilaSelec.IDPaciente);
+                const [jsonData2] = await familiarObj.fetchResultListar(dataFilaSelec.pacDNI);
                 setDataDet(jsonData);
+                setDataFamiliar(jsonData2)
             } catch (error) {
                 console.error('Error al obtener datos: ', error);
             }

@@ -1,7 +1,6 @@
 class detodontograma_Peticiones {
     // LISTAR detodontograma  
     async fetchResultListar(ID) {
-        console.log("detodontograma")
         try {
             const response = await fetch(`https://desplieguebackend-production.up.railway.app/detalleodontograma/listDetodont/${ID}`, {
                 method: 'GET'
@@ -15,7 +14,6 @@ class detodontograma_Peticiones {
     };
     // CREAR detodontograma
     async fetchResultCrear(data) {
-        debugger
         try {
             const response = await fetch('https://desplieguebackend-production.up.railway.app/detalleodontograma/createDetodont', {
                 method: 'POST',
@@ -40,7 +38,6 @@ class detodontograma_Peticiones {
     };
     //ACTUALIZAR detodontograma
     async fetchResultActualizar(data) {
-        debugger
         try {
             const response = await fetch(`https://desplieguebackend-production.up.railway.app/detalleodontograma/updateDetodont/2`, {
                 method: 'PATCH',

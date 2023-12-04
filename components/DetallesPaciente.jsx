@@ -1,13 +1,11 @@
 
 import { useState, useRef, useEffect } from 'react';
 
-function DetallesPaciente({ dataPaciente }) {
-    // { dataPaciente, setDataPaciente }    
-
+function DetallesPaciente({ dataPaciente, dataFamiliar }) {
     return (
         <>
             <div className="row g-0">
-                <input id="IDPaciente" type="show" value={dataPaciente.IDPaciente} />
+                <input id="IDPaciente" type="hidden" value={dataPaciente.IDPaciente} />
                 <div className="col-md-6 mb-2">
                     <div className="row g-0">
                         <label htmlFor="" className="col-auto font-weight-bold g-0" style={{ paddingRight: '10px' }} ><b>Apellidos y Nombres:</b></label>
@@ -79,7 +77,7 @@ function DetallesPaciente({ dataPaciente }) {
                     <div className="row g-0">
                         <label htmlFor="txtcorreo1" className="col-auto g-0" style={{ paddingRight: '10px' }}><b>Domicilio:</b></label>
                         <div className="row col-auto">
-                            <label className="g-0" id="txtcorreo1">{dataPaciente.pacEdad}</label>
+                            <label className="g-0" id="txtcorreo1">{dataPaciente.pacResidencia}</label>
                         </div>
                     </div>
                 </div>
@@ -122,7 +120,7 @@ function DetallesPaciente({ dataPaciente }) {
                     <div className="row g-0">
                         <label htmlFor="txtcorreo1" className="col-auto g-0" style={{ paddingRight: '10px' }}><b>En caso necesario comunicar a:</b></label>
                         <div className="row col-auto">
-                            <label className="g-0" id="txtcorreo1">{dataPaciente.pacEdad}</label>
+                            <label className="g-0" id="txtcorreo1">{`${dataFamiliar.famApellido} ${dataFamiliar.famNombre}`}</label>
                         </div>
                     </div>
                 </div>
@@ -130,7 +128,7 @@ function DetallesPaciente({ dataPaciente }) {
                     <div className="row g-0">
                         <label htmlFor="txtcorreo1" className="col-auto g-0" style={{ paddingRight: '10px' }}><b>Parentesco:</b></label>
                         <div className="row col-auto">
-                            <label className="g-0" id="txtcorreo1">{dataPaciente.pacEdad}</label>
+                            <label className="g-0" id="txtcorreo1">{dataFamiliar.famParentezco}</label>
                         </div>
                     </div>
                 </div>
@@ -138,7 +136,7 @@ function DetallesPaciente({ dataPaciente }) {
                     <div className="row g-0">
                         <label htmlFor="txtcorreo1" className="col-auto g-0" style={{ paddingRight: '10px' }}><b>Domicilio:</b></label>
                         <div className="row col-auto">
-                            <label className="g-0" id="txtcorreo1">{dataPaciente.pacEdad}</label>
+                            <label className="g-0" id="txtcorreo1">{dataPaciente.pacResidencia}</label>
                         </div>
                     </div>
                 </div>
@@ -146,7 +144,7 @@ function DetallesPaciente({ dataPaciente }) {
                     <div className="row g-0">
                         <label htmlFor="txtcorreo1" className="col-auto g-0" style={{ paddingRight: '10px' }}><b>Teléfono:</b></label>
                         <div className="row col-auto">
-                            <label className="g-0" id="txtcorreo1">{dataPaciente.pacEdad}</label>
+                            <label className="g-0" id="txtcorreo1">{dataFamiliar.famTelefono}</label>
                         </div>
                     </div>
                 </div>
@@ -154,7 +152,7 @@ function DetallesPaciente({ dataPaciente }) {
                     <div className="row g-0">
                         <label htmlFor="txtcorreo1" className="col-auto g-0" style={{ paddingRight: '10px' }}><b>Acompañante:</b></label>
                         <div className="row col-auto">
-                            <label className="g-0" id="txtcorreo1">{dataPaciente.pacEdad}</label>
+                            <label className="g-0" id="txtcorreo1"></label>
                         </div>
                     </div>
                 </div>

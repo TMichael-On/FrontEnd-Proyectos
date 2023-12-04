@@ -41,12 +41,12 @@ export default function MasterPage({ children }) {
                 <Link className="nav-link" href="/odontrograma">
                   <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
                   Odontrograma
-                </Link>
-                {/* <div className="sb-sidenav-menu-heading">Interface</div>
-                <Link className="nav-link" href="/new">
+                </Link>                 
+                <Link className="nav-link" href="/paciente">
                   <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
-                  New
+                  Paciente
                 </Link>
+                {/*<div className="sb-sidenav-menu-heading">Interface</div>
                 <div className="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                   <nav className="sb-sidenav-menu-nested nav">
                     <a className="nav-link" href="layout-static.html">Static Navigation</a>

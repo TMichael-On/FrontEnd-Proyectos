@@ -59,7 +59,6 @@ class Paciente_Peticiones {
     };
     //ACTUALIZAR Paciente
     async fetchResultActualizar(data) {
-        debugger
         try {
             const response = await fetch(`https://desplieguebackend-production.up.railway.app/Paciente/updatePaciente/6`, {
                 method: 'PATCH',
@@ -92,9 +91,9 @@ class Paciente_Peticiones {
     };
     //ELIMINAR Paciente
     async fetchResultEliminar(IDPaciente) {
+        debugger
         try {
-            debugger
-            const response = await fetch(`https://desplieguebackend-production.up.railway.app/paciente/deletePaciente/3`, {
+            const response = await fetch(`https://desplieguebackend-production.up.railway.app/paciente/deletePaciente/${IDPaciente}`, {
                 method: 'PATCH'
             });
             const jsonResult = await response.json();

@@ -15,6 +15,11 @@ function historiasClinicas() {
     pacEstadoC: '', pacCorreo: '', pacTelef: '',
     pacEstado: '1',
   });
+  const [dataFamiliar, setDataFamiliar] = useState({
+    IDFamiliar: 0, IDPaciente: 0, famNombre: '',
+    famApellido: '', famDNI: '', famParentezco: '',
+    famOcupacion: '', famCorreo: '', famTelefono: ''
+  });
 
   const [mostrarCard1, setMostrarCard1] = useState(true);
   const [mostrarCard2, setMostrarCard2] = useState(false);
@@ -37,10 +42,10 @@ function historiasClinicas() {
 
   // const IDCitaRef = useRef(null);
   // const  DNIRef= useRef(null);
-  const  personalRef= useRef(null);
-  const  patologicoRef= useRef(null);
-  const  alergiaRef= useRef(null);
-  const  familiarRef= useRef(null);
+  const personalRef = useRef(null);
+  const patologicoRef = useRef(null);
+  const alergiaRef = useRef(null);
+  const familiarRef = useRef(null);
 
   const mostarParte1 = () => {
     setMostrarCard1(!mostrarCard1);
@@ -57,13 +62,13 @@ function historiasClinicas() {
   const mostarParte5 = () => {
     setMostrarCard5(!mostrarCard5);
   };
-  const Diente = ()=> {
+  const Diente = () => {
     // document.getElementById("IDOdontograma").value = 0
     // document.getElementById("Tratamiento").value = 0
     // document.getElementById("dntCara").value = 0
     document.getElementById("mensajeError").style.display = "none";
   };
-  const Antecedente = ()=> {
+  const Antecedente = () => {
     // document.getElementById("IDOdontograma").value = 0
     // document.getElementById("Tratamiento").value = 0
     // document.getElementById("dntCara").value = 0
@@ -77,10 +82,10 @@ function historiasClinicas() {
       </ol>
 
       <div className="col-12 mb-4">
-        <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalDiente" onClick={()=>Diente()} >Registrar diente</button>
+        <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalDiente" onClick={() => Diente()} >Registrar diente</button>
       </div>
       <div className="col-12 mb-4">
-        <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalAntecedente" onClick={()=>Antecedente()} >Registrar antecedentes</button>
+        <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalAntecedente" onClick={() => Antecedente()} >Registrar antecedentes</button>
       </div>
 
       <div className="row mb-2">
@@ -88,7 +93,7 @@ function historiasClinicas() {
           <div className="form-check">
             <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={mostarParte1} checked={mostrarCard1} />
             <label className="form-check-label" htmlFor="flexCheckDefault">
-              Parte 1
+              ANAMNESIS
             </label>
           </div>
         </div>
@@ -96,7 +101,7 @@ function historiasClinicas() {
           <div className="form-check">
             <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" onChange={mostarParte2} />
             <label className="form-check-label" htmlFor="flexCheckChecked">
-              Parte 2
+              FUNCIONES BIOLOGICAS
             </label>
           </div>
         </div>
@@ -104,7 +109,7 @@ function historiasClinicas() {
           <div className="form-check">
             <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" onChange={mostarParte3} />
             <label className="form-check-label" htmlFor="flexCheckChecked">
-              Parte 3
+              EXAMEN GENERAL
             </label>
           </div>
         </div>
@@ -112,7 +117,7 @@ function historiasClinicas() {
           <div className="form-check">
             <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" onChange={mostarParte4} />
             <label className="form-check-label" htmlFor="flexCheckChecked">
-              Parte 4
+              EXAMEN INTRABUCAL
             </label>
           </div>
         </div>
@@ -120,7 +125,7 @@ function historiasClinicas() {
           <div className="form-check">
             <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" onChange={mostarParte5} />
             <label className="form-check-label" htmlFor="flexCheckChecked">
-              Parte 5
+              REGISTRO DIENTES
             </label>
           </div>
         </div>
@@ -198,61 +203,61 @@ function historiasClinicas() {
           </div>
         </div>
       </div>
-      <div id="ModalAntecedente" className="modal"  aria-labelledby="exampleModalLabel" data-bs-backdrop="static">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header bg-dark text-white">
-                            <h5 className="modal-title" id="exampleModalLabel">Antecedentes</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <input id="IDCita" type="show" ref={IDCitaRef} />
-                            <div className="row g-1">
-                                <div className="col-sm-12">
-                                    <label htmlFor="DNI" className="form-label">Paciente</label>
-                                    <select id="DNI" className="form-select" ref={DNIRef}>
-                                        <option value="0" disabled={true}>Seleccionar una opción</option>
-                                        <option value="1">Paciente 1</option>
-                                        <option value="2">Paciente 2</option>
-                                    </select>
-                                </div>
-                                <div className="col-sm-12">
-                                    <label htmlFor="personal" className="form-label">Personal</label>
-                                    <input id="personal" type="text" className="form-control" autoComplete="off" ref={personalRef} />
-                                </div>
-                                <div className="col-sm-12">
-                                    <label htmlFor="patologico" className="form-label">Patologico</label>
-                                    <input id="patologico" type="text" className="form-control" autoComplete="off" ref={patologicoRef} />
-                                </div>
-                                <div className="col-sm-12">
-                                    <label htmlFor="alergia" className="form-label">Alergia</label>
-                                    <input id="alergia" type="text" className="form-control" autoComplete="off" ref={alergiaRef} />
-                                </div>
-                                <div className="col-sm-12">
-                                    <label htmlFor="familiar" className="form-label">Familiar</label>
-                                    <input id="familiar" type="text" className="form-control" autoComplete="off" ref={familiarRef} />
-                                </div>
-
-                            </div>
-                            <div className="col-12 mt-2" >{/* style={{display:'none'}} */}
-                                <div id="mensajeError" className="alert alert-danger" role="alert">
-                                    A simple danger alert—check it out!
-                                </div>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" className="btn btn-primary" onClick={() => Guardar()} >Guardar</button>
-                        </div>
-                    </div>
-                </div>
+      <div id="ModalAntecedente" className="modal" aria-labelledby="exampleModalLabel" data-bs-backdrop="static">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header bg-dark text-white">
+              <h5 className="modal-title" id="exampleModalLabel">Antecedentes</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div className="modal-body">
+              <input id="IDCita" type="show" ref={IDCitaRef} />
+              <div className="row g-1">
+                <div className="col-sm-12">
+                  <label htmlFor="DNI" className="form-label">Paciente</label>
+                  <select id="DNI" className="form-select" ref={DNIRef}>
+                    <option value="0" disabled={true}>Seleccionar una opción</option>
+                    <option value="1">Paciente 1</option>
+                    <option value="2">Paciente 2</option>
+                  </select>
+                </div>
+                <div className="col-sm-12">
+                  <label htmlFor="personal" className="form-label">Personal</label>
+                  <input id="personal" type="text" className="form-control" autoComplete="off" ref={personalRef} />
+                </div>
+                <div className="col-sm-12">
+                  <label htmlFor="patologico" className="form-label">Patologico</label>
+                  <input id="patologico" type="text" className="form-control" autoComplete="off" ref={patologicoRef} />
+                </div>
+                <div className="col-sm-12">
+                  <label htmlFor="alergia" className="form-label">Alergia</label>
+                  <input id="alergia" type="text" className="form-control" autoComplete="off" ref={alergiaRef} />
+                </div>
+                <div className="col-sm-12">
+                  <label htmlFor="familiar" className="form-label">Familiar</label>
+                  <input id="familiar" type="text" className="form-control" autoComplete="off" ref={familiarRef} />
+                </div>
+
+              </div>
+              <div className="col-12 mt-2" >{/* style={{display:'none'}} */}
+                <div id="mensajeError" className="alert alert-danger" role="alert">
+                  A simple danger alert—check it out!
+                </div>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" className="btn btn-primary" onClick={() => Guardar()} >Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {mostrarCard1 && (
         <>
           <div className="card mb-4">
             <div className="modal-header d-flex justify-content-between">
-              <label className="fw-bold">ESTORPIA:</label>
+              <label className="fw-bold">ECTOSCOPIA:</label>
               <div style={{ width: '75px' }}>
                 <button type="button" className="btn btn-primary btn-sm btn-editar" data-bs-toggle="modal" data-bs-target="#ModalCita" onClick={() => MostrarDatos(row)}>
                   <i className="fas fa-pen"></i>
@@ -271,7 +276,7 @@ function historiasClinicas() {
               <label className="fw-bold">1. ANAMNESIS </label>
             </div>
             <div className="card-body">
-              <DetallesPaciente dataPaciente={dataPaciente} />
+              <DetallesPaciente dataPaciente={dataPaciente} dataFamiliar={dataFamiliar} />
             </div>
           </div>
           <div className="card mb-4">

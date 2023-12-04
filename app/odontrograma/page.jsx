@@ -20,6 +20,11 @@ export default function odontrograma() {
     pacEstadoC: '', pacCorreo: '', pacTelef: '',
     pacEstado: '1',
   });
+  const [dataFamiliar, setDataFamiliar] = useState({
+    IDFamiliar:0,IDPaciente:0,famNombre:'',
+    famApellido:'',famDNI:'',famParentezco:'',
+    famOcupacion:'',famCorreo:'',famTelefono:''
+  });
 
   const [dataDet, setDataDet] = useState([]);
   const [loadingDet, setLoadingDet] = useState(true);
@@ -273,7 +278,7 @@ export default function odontrograma() {
           </div>
         </div>
       </div>
-      <ModalPaciente setDataPaciente={setDataPaciente} setDataDet={setDataDet}/>
+      <ModalPaciente setDataPaciente={setDataPaciente} setDataDet={setDataDet} setDataFamiliar={setDataFamiliar}/>
       <div className="card">
         <div className="card-header">
           <i className="fas fa-users me-1"></i> Odontograma
@@ -285,8 +290,8 @@ export default function odontrograma() {
             </div>
           </div>
           <hr />
-          <DetallesPaciente dataPaciente={dataPaciente} />
-          <hr />
+          <DetallesPaciente dataPaciente={dataPaciente} dataFamiliar={dataFamiliar} />
+          <hr/>
           <div className='table-responsive'>
             <Odonto columns={columns} data={data} styles={styles} />
           </div>
